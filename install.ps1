@@ -46,7 +46,7 @@ $superClaudeContent | Set-Content "$SUPER_CLAUDE_DIR\SUPER_CLAUDE.md" -Encoding 
 
 # ── Copy skills ──────────────────────────────────────────────────────────────
 Write-Host "[3/6] Installing skills..." -ForegroundColor Green
-$skills = @("super-claude", "brutal-critic", "futurist", "notebooklm", "yt-search", "session-close", "product-designer")
+$skills = @("super-claude", "brutal-critic", "futurist", "notebooklm", "yt-search", "session-close", "product-designer", "dream")
 foreach ($skill in $skills) {
     $src = "$SCRIPT_DIR\skills\$skill"
     $dst = "$HOME\.claude\skills\$skill"
@@ -70,7 +70,7 @@ $designerContent | Set-Content $designerSkillPath -Encoding UTF8
 
 # ── Copy hooks ───────────────────────────────────────────────────────────────
 Write-Host "[4/6] Installing hooks..." -ForegroundColor Green
-$hooks = @("auto-lint.sh", "ralph-loop.sh", "session-start.sh")
+$hooks = @("auto-lint.sh", "ralph-loop.sh", "session-start.sh", "auto-dream.sh")
 foreach ($hook in $hooks) {
     $hookContent = Get-Content "$SCRIPT_DIR\hooks\$hook" -Raw
     $hookContent = $hookContent -replace '\{\{SUPER_CLAUDE_DIR\}\}', ($SUPER_CLAUDE_DIR -replace '\\', '/')

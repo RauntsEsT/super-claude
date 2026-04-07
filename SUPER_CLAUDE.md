@@ -69,13 +69,24 @@ Nothing goes to the user before QA approval.
 
 **Ralph** — Stop hook. If task is unfinished → continues automatically (max 3x).
 
+**KAIROS** — Proactive background agent. Activates at session start when `.dream_pending` file exists in `SUPER_CLAUDE_DIR`. Analyzes project state, session history, and user patterns to proactively surface:
+- Blockers that weren't explicitly mentioned
+- Stale decisions that need revisiting
+- Patterns across sessions (recurring errors, repeated fixes)
+- Upcoming risks based on current trajectory
+- Does NOT wait to be asked — reports findings immediately after `/super-claude` loads
+- Runs as background sub-agent (`run_in_background: true`) so it doesn't block main work
+
+**AutoDream** — Stop hook. Runs silently at every session end. Creates `.dream_pending` marker. On next session start, KAIROS reads it and consolidates: prunes outdated info, extracts patterns, updates PROJECT_STATE.md. User sees result only if something significant was found.
+
 ## Hooks (automatic)
 
 | Hook | Event | Action |
 |------|-------|--------|
 | Auto-lint | PostToolUse (Edit/Write) | Formats files |
 | Ralph | Stop | Continues if incomplete (max 3x) |
-| SessionStart | SessionStart | Loads context |
+| AutoDream | Stop | Creates `.dream_pending` for next session |
+| SessionStart | SessionStart | Loads context + triggers KAIROS if `.dream_pending` exists |
 
 ## Workflow
 ```
@@ -131,4 +142,4 @@ Research-first | Headless/CLI | Minimalism | Fail-fast | Git everything | Zero-t
 | `playwright` | Browser automation (Chrome) |
 
 ## Skills
-`/super-claude` `/yt-search` `/notebooklm` `/session-close` `/brutal-critic` `/futurist` `/skill-creator` `/firecrawl`
+`/super-claude` `/yt-search` `/notebooklm` `/session-close` `/brutal-critic` `/futurist` `/skill-creator` `/firecrawl` `/dream`
