@@ -41,7 +41,6 @@ echo -e "${GREEN}[1/6] Creating directories...${NC}"
 mkdir -p "$SUPER_CLAUDE_DIR/sessions"
 mkdir -p "$HOME/.claude/skills"
 mkdir -p "$HOME/.claude/hooks"
-mkdir -p "$HOME/.claude/mcp-servers/computer-control"
 
 # ── Copy SUPER_CLAUDE.md with path substitution ──────────────────────────────
 echo -e "${GREEN}[2/6] Installing SUPER_CLAUDE.md...${NC}"
@@ -92,22 +91,8 @@ if ! grep -q "SUPER_CLAUDE_DIR" "$PROFILE_FILE" 2>/dev/null; then
     echo -e "  ${GRAY}✓ SUPER_CLAUDE_DIR exported to $PROFILE_FILE${NC}"
 fi
 
-# ── Copy MCP server ──────────────────────────────────────────────────────────
-echo -e "${GREEN}[5/6] Installing MCP server...${NC}"
-cp "$SCRIPT_DIR/mcp-servers/computer-control/server.py" \
-   "$HOME/.claude/mcp-servers/computer-control/server.py"
-echo -e "  ${GRAY}✓ computer-control/server.py${NC}"
-
-# Register MCP server with Claude
-MCP_SERVER_PATH="$HOME/.claude/mcp-servers/computer-control/server.py"
-echo -e "  Registering computer-control MCP server..."
-if command -v claude &>/dev/null; then
-    claude mcp add computer-control python "$MCP_SERVER_PATH" 2>/dev/null || true
-    echo -e "  ${GRAY}✓ MCP server registered${NC}"
-else
-    echo -e "  ${YELLOW}! claude CLI not found. Register manually:${NC}"
-    echo "    claude mcp add computer-control python \"$MCP_SERVER_PATH\""
-fi
+# computer-control MCP is Windows-only (install.ps1)
+echo -e "${GREEN}[5/6] Skipping computer-control MCP (Windows-only)${NC}"
 
 # ── Install dependencies ──────────────────────────────────────────────────────
 echo -e "${GREEN}[6/6] Installing dependencies...${NC}"

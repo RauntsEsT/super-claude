@@ -72,7 +72,6 @@ The installer will ask where to store your Super Claude configuration (default: 
 | `hooks/auto-lint.sh` | `~/.claude/hooks/` | Auto-formats files after every Edit/Write |
 | `hooks/ralph-loop.sh` | `~/.claude/hooks/` | Auto-continues on detected errors (max 3x) |
 | `hooks/session-start.sh` | `~/.claude/hooks/` | Loads project context at session start |
-| `hooks/auto-dream.sh` | `~/.claude/hooks/` | Marks session end for KAIROS memory consolidation |
 
 **Python packages installed:** `mcp`, `pywinauto` (Windows), `pyautogui`, `Pillow`, `yt-dlp`, `notebooklm`
 
@@ -107,7 +106,6 @@ Invoke directly with slash commands:
 | `/notebooklm` | Google NotebookLM notebook management |
 | `/session-close` | Save session summary + git commit |
 | `/product-designer` | UI/UX concepts with React+Tailwind preview |
-| `/dream` | Manually trigger memory consolidation |
 
 ### computer-control MCP (v2)
 Gives Claude direct control of your screen (Windows, multi-monitor):

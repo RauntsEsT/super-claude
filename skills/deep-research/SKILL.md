@@ -1,6 +1,6 @@
 ---
 name: deep-research
-description: Multi-source deep research using firecrawl and web search. Searches the web, synthesizes findings, and delivers cited reports with source attribution.
+description: Multi-source deep research using web search and web fetch. Searches the web, synthesizes findings, and delivers cited reports with source attribution.
 origin: ECC
 ---
 
@@ -21,7 +21,7 @@ Produce thorough, cited research reports from multiple web sources.
 Break topic into 3-5 sub-questions.
 
 ### Step 2: Multi-Source Search
-For each sub-question, search using available tools (firecrawl, web search).
+For each sub-question, search using available tools (web search, web fetch).
 - Use 2-3 keyword variations per sub-question
 - Aim for 15-30 unique sources total
 - Prioritize: academic, official, reputable news > blogs > forums
