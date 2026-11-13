@@ -83,9 +83,11 @@ foreach ($hook in $hooks) {
 
 # ── Copy MCP server ──────────────────────────────────────────────────────────
 Write-Host "[5/6] Installing MCP server..." -ForegroundColor Green
-Copy-Item -Path "$SCRIPT_DIR\mcp-servers\computer-control\server.py" `
-          -Destination "$HOME\.claude\mcp-servers\computer-control\server.py" -Force
-Write-Host "  ✓ computer-control/server.py" -ForegroundColor Gray
+foreach ($f in @("server.py", "winevents.py")) {
+    Copy-Item -Path "$SCRIPT_DIR\mcp-servers\computer-control\$f" `
+              -Destination "$HOME\.claude\mcp-servers\computer-control\$f" -Force
+    Write-Host "  ✓ computer-control/$f" -ForegroundColor Gray
+}
 
 # Register MCP server with Claude
 $mcpServerPath = "$HOME\.claude\mcp-servers\computer-control\server.py"
@@ -102,7 +104,8 @@ try {
 Write-Host "[6/6] Installing dependencies..." -ForegroundColor Green
 
 Write-Host "  Installing Python packages..." -ForegroundColor Gray
-pip install mcp pywinauto pyautogui Pillow yt-dlp notebooklm --quiet
+pip install mcp pywinauto pyautogui Pillow mss yt-dlp notebooklm --quiet
+pip install winrt-runtime winrt-Windows.Media.Ocr winrt-Windows.Graphics.Imaging winrt-Windows.Storage.Streams winrt-Windows.Globalization winrt-Windows.Foundation winrt-Windows.Foundation.Collections --quiet
 Write-Host "  ✓ Python packages installed" -ForegroundColor Gray
 
 Write-Host "  Installing Node packages..." -ForegroundColor Gray

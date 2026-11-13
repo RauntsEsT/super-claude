@@ -109,17 +109,24 @@ Invoke directly with slash commands:
 | `/product-designer` | UI/UX concepts with React+Tailwind preview |
 | `/dream` | Manually trigger memory consolidation |
 
-### computer-control MCP
-Gives Claude direct control of your screen:
+### computer-control MCP (v2)
+Gives Claude direct control of your screen (Windows, multi-monitor):
 ```
-screenshot()        — take a screenshot
-click_element()     — click a UI element by name
-type_text()         — type into active window
-hotkey()            — keyboard shortcuts (ctrl+c, alt+tab...)
-focus_window()      — bring a window into focus
-scroll()            — scroll with mouse wheel
-get_windows()       — list open windows
+screenshot()        — real image (JPEG, downscaled); monitor=primary|left|right|active|all, region, window
+zoom()              — magnified crop around a point with crosshair (check before clicking)
+act()               — several actions + wait (screen stable / window event) + screenshot in ONE call
+wait_for_change()   — wait until the screen changes
+click_coords()      — human-like click; expect_text= click guard; space='shot' for image coords
+click_text()        — click visible text via Windows OCR (e.g. "Slice plate")
+find_text() / ocr() — locate / read text on screen with coordinates
+ui_tree() / click_ui() — UI Automation tree with rects; click by id/name (Invoke when possible)
+get_windows()       — all windows incl. modal dialogs, hwnd, monitor
+focus_window()      — reliable foreground (AttachThreadInput + ALT)
+events() / wait_for_window() — window events (open/close/title/foreground) via SetWinEventHook
+monitors()          — monitors by name and which windows are on each
+type_text(), hotkey(), key_press(), scroll(), mouse_move()
 ```
+Standalone event stream (for Claude Code Monitor): `python winevents.py [process filter]`
 
 ---
 
